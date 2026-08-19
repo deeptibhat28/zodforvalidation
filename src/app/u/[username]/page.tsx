@@ -90,7 +90,7 @@ export default function PublicProfilePage() {
   };
 
   return (
-    <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
+    <div className="w-full max-w-4xl mx-auto mt-10 p-6 md:p-8 space-y-6 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-3xl shadow-xl">
       <h1 className="text-4xl font-bold mb-6 text-center">
         Public Profile Link
       </h1>

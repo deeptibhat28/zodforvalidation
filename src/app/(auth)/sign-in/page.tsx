@@ -56,9 +56,9 @@ const Page = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen bg-transparent">
 
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+            <div className="w-full max-w-md p-8 space-y-6 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-3xl shadow-xl">
 
                 <div className="text-center">
 
