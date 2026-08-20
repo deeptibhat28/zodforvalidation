@@ -90,13 +90,13 @@ export default function PublicProfilePage() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-4 p-4 md:p-6 space-y-4 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-2xl shadow-md">
-      <h1 className="text-4xl font-bold mb-6 text-center">
+    <div className="w-full max-w-xl mx-auto mt-2 p-3 md:p-4 space-y-2 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-xl shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-center">
         Public Profile Link
       </h1>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
             name="content"
@@ -108,7 +108,7 @@ export default function PublicProfilePage() {
                 <FormControl>
                   <Textarea
                     placeholder="Write your anonymous message here..."
-                    rows={4}
+                    rows={3}
                     className="resize-none"
                     {...field}
                   />
@@ -137,7 +137,7 @@ export default function PublicProfilePage() {
       </Form>
 
   
-      <div className="my-8">
+      <div className="my-3">
         <Button
           onClick={fetchSuggestedMessages}
           disabled={isSuggestLoading}
@@ -166,7 +166,7 @@ export default function PublicProfilePage() {
           <CardHeader>
             <CardTitle>Messages</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col space-y-4">
+          <CardContent className="flex flex-col space-y-2">
             {suggestedMessages.length > 0 ? (
               suggestedMessages.map((message, index) => (
                 <Button
