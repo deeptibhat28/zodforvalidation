@@ -50,7 +50,7 @@ export default function PublicProfilePage() {
       });
 
       toast.success('Success', {
-        description: response.data.message || 'Message sent successfully!',
+        description: <span className="text-gray-900 font-medium"> 'Message sent successfully!'</span>,
       });
       form.reset({ content: '' });
     } catch (error) {
@@ -90,7 +90,7 @@ export default function PublicProfilePage() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10 p-6 md:p-8 space-y-6 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-3xl shadow-xl">
+    <div className="w-full max-w-2xl mx-auto mt-4 p-4 md:p-6 space-y-4 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-2xl shadow-md">
       <h1 className="text-4xl font-bold mb-6 text-center">
         Public Profile Link
       </h1>
@@ -142,7 +142,8 @@ export default function PublicProfilePage() {
           onClick={fetchSuggestedMessages}
           disabled={isSuggestLoading}
           variant="outline"
-          className="my-4"
+          // style={{ backgroundColor: '#ffffff', color: '#111827' }}
+          className="my-4 bg-rose-50 text-gray-900 border-rose-200 hover:bg-rose-50 hover:text-gray-900"
         >
           {isSuggestLoading ? (
             <>
@@ -151,7 +152,7 @@ export default function PublicProfilePage() {
             </>
           ) : (
             <>
-              <Sparkles className="mr-2 h-4 w-4 text-yellow-500" />
+              <Sparkles className="mr-2 h-4 w-4 text-yellow-500 white" />
               Suggest Messages (AI)
             </>
           )}
@@ -171,14 +172,15 @@ export default function PublicProfilePage() {
                 <Button
                   key={index}
                   variant="outline"
-                  className="text-left whitespace-normal h-auto py-3 justify-start font-normal"
+                  style={{ backgroundColor: '#ffffff', color: '#111827'}}
+                  className="text-left whitespace-normal h-auto py-3 justify-start font-normal bg-rose-50 text-gray-900 border-gray-200 hover:bg-gray-100"
                   onClick={() => handleMessageClick(message)}
                 >
                   {message}
                 </Button>
               ))
             ) : (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 border-gray-200 hover:bg-gray-100">
                 Click &quot;Suggest Messages&quot; to generate AI suggestions!
               </p>
             )}

@@ -65,7 +65,7 @@ const DashboardPage = () => {
         setMessages(response.data.messages || []);
         if (refresh) {
           toast.success("Refreshed messages", {
-            description: "Showing latest messages",
+            description: <span className="text-gray-900">Showing latest messages</span>,
           });
         }
       } catch (error) {
@@ -127,7 +127,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10 p-6 md:p-8 space-y-6 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-3xl shadow-xl">
+    <div className="w-full max-w-2xl mx-auto mt-10 p-4 md:p-6 space-y-6 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-2xl shadow-md">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
       <div className="mb-4">
@@ -145,7 +145,6 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      {/* Switch component fix: removed {...register(...)} */}
       <div className="mb-4 flex items-center">
         <Switch
           checked={acceptMessages}
@@ -160,7 +159,7 @@ const DashboardPage = () => {
       <Separator />
 
       <Button
-        className="mt-4"
+        className="mt-4 bg-rose-50 text-gray-900 border-rose-200 hover:bg-rose-50 hover:text-gray-900"
         variant="outline"
         onClick={(e) => {
           e.preventDefault();

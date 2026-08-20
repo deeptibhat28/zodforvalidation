@@ -59,7 +59,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     : "";
 
   return (
-    <Card className="card-bordered">
+    <Card className="bg-white/80 border border-rose-200/80 shadow-sm rounded-xl">
       <CardHeader className="flex flex-row justify-between items-start space-y-0">
         <div>
           <CardTitle className="text-lg font-semibold pr-2">
@@ -87,7 +87,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
             </AlertDialogHeader>
 
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="bg-rose-50 text-gray-900 border-rose-200 hover:bg-rose-50 hover:text-gray-900">Cancel</AlertDialogCancel>
               <AlertDialogAction onClick={handleDeleteConfirm}>
                 Continue
               </AlertDialogAction>
