@@ -12,7 +12,7 @@ import messages from "@/messages.json"
 const Home = () => {
   return (
     <>
-    <main className='grow flex flex-col items-center justify-center px-4 md:px-24 py-12'>
+    <main className="flex min-h-[80vh] flex-col items-center justify-center gap-6 py-6 px-6">
       <section className='text-center mb-8 md:mb-12'>
         <h1 className='text-3xl md:text-5xl font-bold' >Dive into the mystery world of Anonymous Conversations</h1>
         <p className='mt-3 md:mt-4 text-base'>Explore Mystery Message - Where your identity remains a secret.</p>
