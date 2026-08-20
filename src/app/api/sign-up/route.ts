@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         }
 
         // Check if email already exists
-        const existingUserByEmail = await UserModel.findOne({ email });
+        // const existingUserByEmail = await UserModel.findOne({ email });
 
         // Generate verification code
         const verifyCode = Math.floor(
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
         const verifyCodeExpiry = new Date(
             Date.now() + 60 * 60 * 1000
         );
-
+        /*
         if (existingUserByEmail) {
             // Email already belongs to a verified account
             if (existingUserByEmail.isVerified) {
@@ -70,8 +70,9 @@ export async function POST(request: Request) {
             existingUserByEmail.verifyCode = verifyCode;
             existingUserByEmail.verifyCodeExpiry = verifyCodeExpiry;
 
-            await existingUserByEmail.save();
-        } else {
+            await existingUserByEmail.save();           
+        }  */
+        // else {
             // New user
             const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -87,11 +88,11 @@ export async function POST(request: Request) {
             });
 
             await newUser.save();
-        }
+        // }
 
         // Send verification email
         const emailResponse = await sendVerificationEmail(
-            email,
+            'bhatdeepti28@gmail.com',
             username,
             verifyCode
         );
