@@ -21,13 +21,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
+
 
 const Page = () => {
     const [username, setUsername] = useState("")
     const [usernameMessage, setUsernameMessage] = useState("")
     const [isCheckingUsername, setIsCheckingUsername] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const debounced = useDebounceCallback(setUsername, 300)
     const router = useRouter()
@@ -187,11 +189,18 @@ const Page = () => {
                                     <FormLabel>Password</FormLabel>
 
                                     <FormControl>
+                                        <div className="relative">
                                         <Input
-                                            type="password"
+                                            type= {showPassword ? 'text' : 'password'}
                                             placeholder="password"
                                             {...field}
+                                            className="pr-10"
                                         />
+                                        <button type="button" onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        </button>
+                                        </div>
                                     </FormControl>
 
                                     <FormMessage />
