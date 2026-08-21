@@ -9,88 +9,74 @@ export async function POST(request: Request) {
     try {
         const { username, email, password } = await request.json();
 
-        // Basic validation (for my understanding)
         if (!username || !email || !password) {
             return Response.json(
-                {
-                    success: false,
-                    message: "Username, email and password are required",
-                },
+                { success: false, message: "Username, email and password are required" },
                 { status: 400 }
             );
         }
 
-        // Check if username already exists for a verified user
-        const existingUserVerifiedByUsername = await UserModel.findOne({
-            username,
-            isVerified: true,
-        });
+        const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const verifyCodeExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
-        if (existingUserVerifiedByUsername) {
-            return Response.json(
-                {
-                    success: false,
-                    message: "Username is already taken",
-                },
-                { status: 400 }
-            );
-        }
+        // Check if user already exists
+        const existingUser = await UserModel.findOne({ username });
 
-        // Check if email already exists
-        // const existingUserByEmail = await UserModel.findOne({ email });
-
-        // Generate verification code
-        const verifyCode = Math.floor(
-            100000 + Math.random() * 900000
-        ).toString();
-
-        // Verification code expires in 1 hour
-        const verifyCodeExpiry = new Date(
-            Date.now() + 60 * 60 * 1000
-        );
-        /*
-        if (existingUserByEmail) {
-            // Email already belongs to a verified account
-            if (existingUserByEmail.isVerified) {
+        if (existingUser) {
+            if (existingUser.isVerified) {
                 return Response.json(
-                    {
-                        success: false,
-                        message: "User already exists with this email",
-                    },
+                    { success: false, message: "Username is already taken" },
                     { status: 400 }
                 );
+            } else {
+                // User exists but is unverified! Update info and resend code.
+                const hashedPassword = await bcrypt.hash(password, 10);
+                existingUser.email = email;
+                existingUser.password = hashedPassword;
+                existingUser.verifyCode = verifyCode;
+                existingUser.verifyCodeExpiry = verifyCodeExpiry;
+                await existingUser.save();
+
+  
+                const emailResponse = await sendVerificationEmail(
+                    'bhatdeepti28@gmail.com',
+                    username,
+                    verifyCode
+                );
+
+                if (!emailResponse.success) {
+                    return Response.json(
+                        { success: false, message: emailResponse.message },
+                        { status: 500 }
+                    );
+                }
+
+                // Return success: true so your frontend router automatically pushes you to the verify page!
+                return Response.json(
+                    { 
+                        success: true, 
+                        message: "User already exists but is unverified. A new verification code has been sent." 
+                    },
+                    { status: 200 }
+                );
             }
+        }
 
-            // Existing but unverified user:
-            // update their password and verification code
-            const hashedPassword = await bcrypt.hash(password, 10);
+        // Brand new user registration
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new UserModel({
+            username,
+            email,
+            password: hashedPassword,
+            verifyCode,
+            verifyCodeExpiry,
+            isVerified: false,
+            isAcceptingMessage: true,
+            messages: [],
+        });
 
-            existingUserByEmail.username = username;
-            existingUserByEmail.password = hashedPassword;
-            existingUserByEmail.verifyCode = verifyCode;
-            existingUserByEmail.verifyCodeExpiry = verifyCodeExpiry;
+        await newUser.save();
 
-            await existingUserByEmail.save();           
-        }  */
-        // else {
-            // New user
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const newUser = new UserModel({
-                username,
-                email,
-                password: hashedPassword,
-                verifyCode,
-                verifyCodeExpiry,
-                isVerified: false,
-                isAcceptingMessage: true,
-                messages: [],
-            });
-
-            await newUser.save();
-        // }
-
-        // Send verification email
         const emailResponse = await sendVerificationEmail(
             'bhatdeepti28@gmail.com',
             username,
@@ -99,10 +85,7 @@ export async function POST(request: Request) {
 
         if (!emailResponse.success) {
             return Response.json(
-                {
-                    success: false,
-                    message: emailResponse.message,
-                },
+                { success: false, message: emailResponse.message },
                 { status: 500 }
             );
         }
@@ -110,19 +93,15 @@ export async function POST(request: Request) {
         return Response.json(
             {
                 success: true,
-                message:
-                    "User registered successfully. Please verify your email",
+                message: "User registered successfully. Please verify your email",
             },
             { status: 201 }
         );
+
     } catch (error) {
         console.error("Error registering user:", error);
-
         return Response.json(
-            {
-                success: false,
-                message: "Error registering user",
-            },
+            { success: false, message: "Error registering user" },
             { status: 500 }
         );
     }
