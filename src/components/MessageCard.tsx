@@ -59,10 +59,10 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     : "";
 
   return (
-    <Card className="bg-white/80 border border-rose-200/80 shadow-sm rounded-xl">
-      <CardHeader className="flex flex-row justify-between items-start space-y-0">
+    <Card className="backdrop-blur-md bg-white/60 border border-white/40 shadow-md rounded-2xl p-4 flex flex-col justify-between">
+      <CardHeader className="flex justify-between items-start">
         <div>
-          <CardTitle className="text-lg font-semibold pr-2">
+          <CardTitle className="text-s font-semibold pr-2">
             {message.content}
           </CardTitle>
           {formattedDate && (

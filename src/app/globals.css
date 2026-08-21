@@ -21,6 +21,6 @@
 
 @layer base {
   body {
-    @apply bg-linear-to-br from-rose-300 via-pink-200 to-orange-200 min-h-screen text-gray-800;
+    @apply bg-linear-to-br from-rose-300 via-pink-200 to-orange-200 min-h-full bg-fixed text-gray-800;
   }
 }

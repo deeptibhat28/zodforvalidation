@@ -103,7 +103,7 @@ const Page = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-transparent">
-            <div className="w-full max-w-md p-8 space-y-8 bg-rose-100/70 backdrop-blur-md border border-rose-200/60 rounded-3xl shadow-xl">
+            <div className="backdrop-blur-xl bg-white/40 border border-white/50 shadow-2xl rounded-3xl p-8 max-w-md w-full flex flex-col items-center">
 
                 <div className="text-center">
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
