@@ -18,7 +18,7 @@ const Navbar = () => {
                 session ? (
                     <>
                     <span className='mr-4 font-bold text-lg text-gray-800'>Welcome, {user.username || user.email}</span>
-                    <Button className='w-full md:w-auto ◻bg-slate-900 ◻text-white ◻hover:bg-slate-800' onClick={async () => { await signOut({ redirect: false }); window.location.href = '/'; }}>Logout</Button>
+                    <Button className='w-full md:w-auto bg-slate-900 text-white hover:bg-slate-800' onClick={async () => { await signOut({ redirect: false }); window.location.href = '/'; }}>Logout</Button>
                     </>
                 ) : (
                     <Link href='/sign-in'>
